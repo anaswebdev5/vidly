@@ -23,6 +23,7 @@ class Movies extends Component {
     this.setState({
       movies,
       genres,
+      selectedGenre: this.state.selectedGenre ? null : genres[0],
     });
   }
 
@@ -80,7 +81,6 @@ class Movies extends Component {
 
     if (count === 0) return <b>There is no movies in database</b>;
     const { totalCount, data: movies } = this.getPagedData();
-    console.log(movies);
     return (
       <div className="row">
         <div className="col-3">
