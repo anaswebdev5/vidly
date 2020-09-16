@@ -1,0 +1,26 @@
+{
+  "files": {
+    "main.css": "/anaswebdev5/vidly/static/css/main.5f361e03.chunk.css",
+    "main.js": "/anaswebdev5/vidly/static/js/main.e41022d5.chunk.js",
+    "main.js.map": "/anaswebdev5/vidly/static/js/main.e41022d5.chunk.js.map",
+    "runtime-main.js": "/anaswebdev5/vidly/static/js/runtime-main.7df998e8.js",
+    "runtime-main.js.map": "/anaswebdev5/vidly/static/js/runtime-main.7df998e8.js.map",
+    "static/css/2.c6b493a5.chunk.css": "/anaswebdev5/vidly/static/css/2.c6b493a5.chunk.css",
+    "static/js/2.ad8b473d.chunk.js": "/anaswebdev5/vidly/static/js/2.ad8b473d.chunk.js",
+    "static/js/2.ad8b473d.chunk.js.map": "/anaswebdev5/vidly/static/js/2.ad8b473d.chunk.js.map",
+    "index.html": "/anaswebdev5/vidly/index.html",
+    "precache-manifest.6c9c2e92697f4493d489bb87cc9dc552.js": "/anaswebdev5/vidly/precache-manifest.6c9c2e92697f4493d489bb87cc9dc552.js",
+    "service-worker.js": "/anaswebdev5/vidly/service-worker.js",
+    "static/css/2.c6b493a5.chunk.css.map": "/anaswebdev5/vidly/static/css/2.c6b493a5.chunk.css.map",
+    "static/css/main.5f361e03.chunk.css.map": "/anaswebdev5/vidly/static/css/main.5f361e03.chunk.css.map",
+    "static/js/2.ad8b473d.chunk.js.LICENSE.txt": "/anaswebdev5/vidly/static/js/2.ad8b473d.chunk.js.LICENSE.txt",
+    "static/media/font-awesome.css": "/anaswebdev5/vidly/static/media/fontawesome-webfont.fee66e71.woff"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.7df998e8.js",
+    "static/css/2.c6b493a5.chunk.css",
+    "static/js/2.ad8b473d.chunk.js",
+    "static/css/main.5f361e03.chunk.css",
+    "static/js/main.e41022d5.chunk.js"
+  ]
+}
