@@ -79,8 +79,8 @@ class Movies extends Component {
     } = this.state;
 
     if (count === 0) return <b>There is no movies in database</b>;
-    const { totalCount, movies } = this.getPagedData();
-
+    const { totalCount, data: movies } = this.getPagedData();
+    console.log(movies);
     return (
       <div className="row">
         <div className="col-3">
