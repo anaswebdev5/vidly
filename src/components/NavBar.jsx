@@ -30,14 +30,13 @@ const NavBar = () => {
           <NavLink className="nav-item nav-link" to="/rentals">
             Rentals
           </NavLink>
-          <NavLink
-            style={{ float: "right" }}
-            className="nav-item nav-link"
-            to="/login"
-          >
-            <i className="fa fa-sign-in fa-4" aria-hidden="true"></i>
-          </NavLink>
         </ul>
+        <Link
+          className="btn btn-dark d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+          to="/login"
+        >
+          <i className="fa fa-sign-in fa-4" aria-hidden="true"></i> Login
+        </Link>
       </div>
     </nav>
   );
