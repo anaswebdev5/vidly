@@ -3,7 +3,7 @@ import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    <nav className="navbar navbar-expand-md navbar-dark bg-dark ">
+    <nav className="navbar navbar-expand-md navbar-dark bg-primary ">
       <Link className="navbar-brand" to="/">
         <i className="fa fa-video-camera" aria-hidden="true"></i> Vidly
       </Link>
@@ -22,20 +22,36 @@ const NavBar = () => {
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
         <ul className="navbar-nav mr-auto">
           <NavLink className="nav-item nav-link" to="/movies">
-            Movies
+            <b>Movies</b>
           </NavLink>
           <NavLink className="nav-item nav-link" to="/customers">
-            Customers
+            <b>Customers</b>
           </NavLink>
           <NavLink className="nav-item nav-link" to="/rentals">
-            Rentals
+            <b>Rentals</b>
           </NavLink>
         </ul>
         <Link
-          className="btn btn-dark d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+          style={{
+            fontWeight: 500,
+            color: "primary",
+            borderWidth: 0,
+          }}
+          className="btn btn-outline-light d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
           to="/login"
         >
           <i className="fa fa-sign-in fa-4" aria-hidden="true"></i> Login
+        </Link>
+        <Link
+          style={{
+            fontWeight: 500,
+            color: "primary",
+            borderWidth: 0,
+          }}
+          className="btn btn-outline-light d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
+          to="/register"
+        >
+          <i className="fa fa-user-plus" aria-hidden="true"></i> Register
         </Link>
       </div>
     </nav>

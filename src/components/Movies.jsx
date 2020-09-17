@@ -6,6 +6,7 @@ import Pagination from "./common/Pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/ListGroup";
 import MoviesTable from "./MoviesTable";
+import SearchBox from "./common/SearchBox";
 
 class Movies extends Component {
   state = {
@@ -15,6 +16,7 @@ class Movies extends Component {
     genres: [],
     selectedGenre: null,
     sortColumn: { path: "title", order: "asc" },
+    searchQuery: "",
   };
 
   componentDidMount() {
@@ -51,6 +53,13 @@ class Movies extends Component {
   handleSort = (sortColumn) => {
     this.setState({ sortColumn });
   };
+  handleSearch = (query) => {
+    this.setState({
+      searchQuery: query,
+      selectedGenre: this.state.genres[0],
+      currentPage: 1,
+    });
+  };
   getPagedData = () => {
     const {
       pageSize,
@@ -58,13 +67,17 @@ class Movies extends Component {
       movies: allMovies,
       selectedGenre,
       sortColumn,
+      searchQuery,
     } = this.state;
-    let filtered = allMovies;
 
-    if (selectedGenre && selectedGenre._id)
+    let filtered = allMovies;
+    if (searchQuery)
+      filtered = allMovies.filter((m) =>
+        m.title.toLowerCase().startsWith(searchQuery.toLowerCase())
+      );
+    else if (selectedGenre && selectedGenre._id)
       filtered = allMovies.filter((m) => m.genre._id === selectedGenre._id);
     const sorted = _.orderBy(filtered, sortColumn.path, sortColumn.order);
-
     const movies = paginate(sorted, currentPage, pageSize);
     return { totalCount: filtered.length, data: movies };
   };
@@ -77,6 +90,7 @@ class Movies extends Component {
       genres,
       selectedGenre,
       sortColumn,
+      searchQuery,
     } = this.state;
 
     if (count === 0) return <b>There is no movies in database</b>;
@@ -92,6 +106,7 @@ class Movies extends Component {
         </div>
         <div className="col-sm-9">
           <b>Showing {totalCount} movies from database.</b>
+          <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             sortColumn={sortColumn}
             movies={movies}
