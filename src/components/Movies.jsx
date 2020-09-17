@@ -83,14 +83,14 @@ class Movies extends Component {
     const { totalCount, data: movies } = this.getPagedData();
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-sm-3">
           <ListGroup
             items={genres}
             selectedItem={selectedGenre}
             onItemSelect={this.handleGenreSelect}
           ></ListGroup>
         </div>
-        <div className="col">
+        <div className="col-sm-9">
           <b>Showing {totalCount} movies from database.</b>
           <MoviesTable
             sortColumn={sortColumn}

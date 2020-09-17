@@ -3,14 +3,9 @@ import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   return (
-    // <nav className="navbar navbar-expand-lg navbar-light bg-light">
-    //   <Link className="navbar-brand" to="/">
-    //     Vidly
-    //   </Link>
-    // </nav>
     <nav className="navbar navbar-expand-md navbar-dark bg-dark ">
       <Link className="navbar-brand" to="/">
-        Vidly
+        <i className="fa fa-video-camera" aria-hidden="true"></i> Vidly
       </Link>
       <button
         className="navbar-toggler"
@@ -25,7 +20,7 @@ const NavBar = () => {
       </button>
 
       <div className="collapse navbar-collapse" id="navbarsExampleDefault">
-        <div className="navbar-nav mr-auto">
+        <ul className="navbar-nav mr-auto">
           <NavLink className="nav-item nav-link" to="/movies">
             Movies
           </NavLink>
@@ -35,7 +30,14 @@ const NavBar = () => {
           <NavLink className="nav-item nav-link" to="/rentals">
             Rentals
           </NavLink>
-        </div>
+          <NavLink
+            style={{ float: "right" }}
+            className="nav-item nav-link"
+            to="/login"
+          >
+            <i className="fa fa-sign-in fa-4" aria-hidden="true"></i>
+          </NavLink>
+        </ul>
       </div>
     </nav>
   );
