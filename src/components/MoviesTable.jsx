@@ -9,7 +9,9 @@ class MoviesTable extends Component {
       path: "title",
       label: "Title",
       content: (movie) => (
-        <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+        <b>
+          <Link to={`/movies/${movie._id}`}>{movie.title}</Link>
+        </b>
       ),
     },
     { path: "genre.name", label: "Genre" },
@@ -18,7 +20,9 @@ class MoviesTable extends Component {
     {
       key: "like",
       content: (movie) => (
-        <Like onClick={() => this.props.onLike(movie)} liked={movie.liked} />
+        <b>
+          <Like onClick={() => this.props.onLike(movie)} liked={movie.liked} />
+        </b>
       ),
     },
     {

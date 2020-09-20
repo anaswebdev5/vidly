@@ -1,12 +1,14 @@
 import React, { Component } from "react";
-import { getMovies } from "../services/fakeMovieService";
-import { getGenres } from "../services/fakeGenreService";
+import { deleteMovie, getMovies, saveMovie } from "../services/movieService";
+import { getGenres } from "../services/genreService";
 import _ from "lodash";
 import Pagination from "./common/Pagination";
 import { paginate } from "../utils/paginate";
 import ListGroup from "./common/ListGroup";
 import MoviesTable from "./MoviesTable";
 import SearchBox from "./common/SearchBox";
+import { toast } from "react-toastify";
+import { Link } from "react-router-dom";
 
 class Movies extends Component {
   state = {
@@ -19,9 +21,10 @@ class Movies extends Component {
     searchQuery: "",
   };
 
-  componentDidMount() {
-    const movies = getMovies();
-    const genres = [{ _id: "", name: "All Genres" }, ...getGenres()];
+  async componentDidMount() {
+    const { data: movies } = await getMovies();
+    let { data: genres } = await getGenres();
+    genres = [{ _id: "", name: "All Genres" }, ...genres];
     this.setState({
       movies,
       genres,
@@ -29,17 +32,40 @@ class Movies extends Component {
     });
   }
 
-  handleDelete = (movie) => {
-    const movies = this.state.movies.filter((m) => m._id !== movie._id);
-    this.setState({ movies });
+  handleDelete = async (movie) => {
+    const oldMovies = [...this.state.movies]; //old State
+    try {
+      const movies = this.state.movies.filter((m) => m._id !== movie._id);
+      this.setState({ movies });
+      const { error } = await deleteMovie(movie._id);
+      if (error) {
+        throw Error(error);
+      }
+      toast.success("Movie deleted successfuly");
+    } catch (ex) {
+      this.setState({ movies: oldMovies });
+      toast.error("Movie is already deleted!");
+      console.log(ex);
+    }
   };
 
-  handleLike = (movie) => {
-    const movies = [...this.state.movies];
-    const index = movies.indexOf(movie);
-    movies[index] = { ...movies[index] };
-    movies[index].liked = !movies[index].liked;
-    this.setState({ movies });
+  handleLike = async (movie) => {
+    const oldMovies = [...this.state.movies];
+    try {
+      const movies = [...this.state.movies];
+      const index = movies.indexOf(movie);
+      movies[index] = { ...movies[index] };
+      movies[index].liked = !movies[index].liked;
+      this.setState({ movies });
+      const { data } = await saveMovie(movie);
+      if (!data) {
+        throw Error();
+      }
+    } catch (ex) {
+      toast.error("Movie not found.");
+      this.setState({ movies: oldMovies });
+      console.log(ex);
+    }
   };
 
   handlePageChange = (page) => {
@@ -97,15 +123,22 @@ class Movies extends Component {
     const { totalCount, data: movies } = this.getPagedData();
     return (
       <div className="row">
-        <div className="col-sm-3">
+        <div className="col-3">
           <ListGroup
             items={genres}
             selectedItem={selectedGenre}
             onItemSelect={this.handleGenreSelect}
           ></ListGroup>
         </div>
-        <div className="col-sm-9">
-          <b>Showing {totalCount} movies from database.</b>
+        <div className="col">
+          <Link
+            to="/movies/new"
+            className="btn btn-primary"
+            style={{ marginBottom: 20, float: "right" }}
+          >
+            New Movie
+          </Link>
+          <span>Showing {totalCount} movies from database.</span>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable
             sortColumn={sortColumn}
