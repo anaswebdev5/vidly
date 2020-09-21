@@ -37,6 +37,7 @@ class MovieForm extends Form {
     try {
       const { data: genres } = await getGenres();
       this.setState({ genres });
+
       const movieId = this.props.match.params.id;
       if (movieId === "new") return;
       const { data: movie } = await getMovie(movieId);
@@ -96,7 +97,7 @@ class MovieForm extends Form {
           {this.renderInput("title", "Title")}
           {this.renderSelect("genreId", "Genre", this.state.genres)}
           {this.renderInput("numberInStock", "Stock", "number")}
-          {this.renderInput("dailyRentalRate", "Rate", "number")}
+          {this.renderInput("dailyRentalRate", "Rate")}
           {this.renderButton("Save")}
         </form>
       </div>

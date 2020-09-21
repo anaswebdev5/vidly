@@ -20,9 +20,7 @@ class MoviesTable extends Component {
     {
       key: "like",
       content: (movie) => (
-        <b>
-          <Like onClick={() => this.props.onLike(movie)} liked={movie.liked} />
-        </b>
+        <Like onClick={() => this.props.onLike(movie)} liked={movie.liked} />
       ),
     },
     {

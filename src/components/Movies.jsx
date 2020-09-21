@@ -57,9 +57,10 @@ class Movies extends Component {
       movies[index] = { ...movies[index] };
       movies[index].liked = !movies[index].liked;
       this.setState({ movies });
-      const { data } = await saveMovie(movie);
-      if (!data) {
-        throw Error();
+      console.log(movie);
+      const { error } = await saveMovie(movie);
+      if (error) {
+        throw Error(error);
       }
     } catch (ex) {
       toast.error("Movie not found.");
