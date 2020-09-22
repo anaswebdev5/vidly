@@ -57,7 +57,6 @@ class Movies extends Component {
       movies[index] = { ...movies[index] };
       movies[index].liked = !movies[index].liked;
       this.setState({ movies });
-      console.log(movie);
       const { error } = await saveMovie(movie);
       if (error) {
         throw Error(error);
@@ -110,6 +109,7 @@ class Movies extends Component {
   };
 
   render() {
+    const { user } = this.props;
     const { length: count } = this.state.movies;
     const {
       pageSize,
@@ -124,7 +124,7 @@ class Movies extends Component {
     const { totalCount, data: movies } = this.getPagedData();
     return (
       <div className="row">
-        <div className="col-3">
+        <div className="col-sm-3 col-md-6 col-lg-3">
           <ListGroup
             items={genres}
             selectedItem={selectedGenre}
@@ -132,13 +132,15 @@ class Movies extends Component {
           ></ListGroup>
         </div>
         <div className="col">
-          <Link
-            to="/movies/new"
-            className="btn btn-primary"
-            style={{ marginBottom: 20, float: "right" }}
-          >
-            New Movie
-          </Link>
+          {user && (
+            <Link
+              to="/movies/new"
+              className="btn btn-primary"
+              style={{ marginBottom: 20, float: "right" }}
+            >
+              New Movie
+            </Link>
+          )}
           <span>Showing {totalCount} movies from database.</span>
           <SearchBox value={searchQuery} onChange={this.handleSearch} />
           <MoviesTable

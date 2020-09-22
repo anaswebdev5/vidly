@@ -1,7 +1,7 @@
 import React from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ user }) => {
   return (
     <nav className="navbar navbar-expand-md navbar-dark bg-primary ">
       <Link className="navbar-brand" to="/">
@@ -31,28 +31,55 @@ const NavBar = () => {
             <b>Rentals</b>
           </NavLink>
         </ul>
-        <Link
-          style={{
-            fontWeight: 500,
-            color: "primary",
-            borderWidth: 0,
-          }}
-          className="btn btn-outline-light d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
-          to="/login"
-        >
-          <i className="fa fa-sign-in fa-4" aria-hidden="true"></i> Login
-        </Link>
-        <Link
-          style={{
-            fontWeight: 500,
-            color: "primary",
-            borderWidth: 0,
-          }}
-          className="btn btn-outline-light d-none d-lg-inline-block mb-3 mb-md-0 ml-md-3"
-          to="/register"
-        >
-          <i className="fa fa-user-plus" aria-hidden="true"></i> Register
-        </Link>
+
+        {user && (
+          <React.Fragment>
+            <Link
+              className="btn btn-login d-none d-lg-inline-block mb-2 mb-md-0 ml-md-2"
+              to="/profile"
+            >
+              <i className="fa fa-user-circle-o fa-4" aria-hidden="true"></i>{" "}
+              {user.name}
+            </Link>
+            <Link
+              style={{
+                fontWeight: 500,
+                borderWidth: 0,
+              }}
+              className="btn btn-login d-none d-lg-inline-block mb-2 mb-md-0 ml-md-2"
+              to="/logout"
+            >
+              <i className="fa fa-sign-out fa-4" aria-hidden="true"></i> Logout
+            </Link>
+          </React.Fragment>
+        )}
+
+        {!user && (
+          <React.Fragment>
+            <Link
+              style={{
+                fontWeight: 500,
+                color: "primary",
+                borderWidth: 0,
+              }}
+              className="btn btn-login d-none d-lg-inline-block mb-2 mb-md-0 ml-md-2"
+              to="/register"
+            >
+              <i className="fa fa-user-plus" aria-hidden="true"></i> Register
+            </Link>
+            <Link
+              style={{
+                fontWeight: 500,
+                color: "primary",
+                borderWidth: 0,
+              }}
+              className="btn btn-login d-none d-lg-inline-block mb-2 mb-md-0 ml-md-2"
+              to="/login"
+            >
+              <i className="fa fa-sign-in fa-4" aria-hidden="true"></i> Login
+            </Link>
+          </React.Fragment>
+        )}
       </div>
     </nav>
   );

@@ -32,22 +32,26 @@ class MovieForm extends Form {
       .required()
       .label("Daily Rental Rate"),
   };
-
   async componentDidMount() {
-    try {
-      const { data: genres } = await getGenres();
-      this.setState({ genres });
+    await this.populateGenres();
+    await this.populateMovie();
+  }
 
+  async populateGenres() {
+    const { data: genres } = await getGenres();
+    this.setState({ genres });
+  }
+
+  async populateMovie() {
+    try {
       const movieId = this.props.match.params.id;
       if (movieId === "new") return;
+
       const { data: movie } = await getMovie(movieId);
-      if (!movie) {
-        throw Error("Movie not found");
-      }
-      this.setState({ data: this.mapToViewModel(movie), title: "Edit Movie" });
+      this.setState({ data: this.mapToViewModel(movie) });
     } catch (ex) {
-      console.log(ex);
-      return this.props.history.replace("/notFound");
+      if (ex.response && ex.response.status === 404)
+        this.props.history.replace("/not-found");
     }
   }
 
@@ -64,15 +68,17 @@ class MovieForm extends Form {
   doSubmit = async () => {
     try {
       const movie = this.state.data;
-      const { error } = await saveMovie(movie);
-      if (error) {
-        throw Error(error);
-      }
+      await saveMovie(movie);
       this.props.history.push("/movies");
       toast.success("Movie saved successfuly.");
     } catch (ex) {
-      console.log(ex);
-      toast.error("Movie wasn't saved.");
+      if (ex.response && ex.response.status === 400) {
+        const errors = { ...this.state.errors };
+        errors.title = ex.response.data;
+        this.setState({ errors });
+        console.log(ex);
+        toast.error("Movie wasn't saved.");
+      }
     }
   };
   mapToModelView = (movie, genre) => {
