@@ -2,7 +2,6 @@ import Joi from "joi-browser";
 import React from "react";
 import Form from "./common/Form";
 import * as userService from "../services/userService";
-import "./login.css";
 import auth from "../services/authService";
 
 export default class Register extends Form {
